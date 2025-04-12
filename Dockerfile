@@ -1,17 +1,20 @@
 FROM python:3.11-slim-bookworm
 COPY --from=ghcr.io/astral-sh/uv:0.6.14 /uv /uvx /bin/
 
+# EXPOSE 5000
 
 # Copy the project into the image
 ADD . /app
 
 # Sync the project into a new environment, using the frozen lockfile
 WORKDIR /app
-RUN uv sync --frozen
+RUN uv sync --frozen --no-dev --no-install-project
 
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
-RUN uv run app_flask.py
+
+# RUN uv run app_flask.py
+CMD ["uv", "run", "app_flask.py"]
 
 
 # https://medium.com/@albertazzir/blazing-fast-python-docker-builds-with-poetry-a78a66f5aed0
