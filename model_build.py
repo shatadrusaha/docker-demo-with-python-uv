@@ -6,19 +6,7 @@ import matplotlib.pyplot as plt
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay#, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, roc_curve
-
-# import os
-# import sys
-# import requests
-# import numpy as np
-# import pandas as pd
-# import seaborn as sns
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-
-from sklearn.model_selection import GridSearchCV
-
+from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay#, accuracy_score, precision_score, recall_score, f1_score
 
 
 '''                     User defined variables.                       '''
@@ -197,3 +185,17 @@ plt.show()
 
 # Save the model object.
 joblib.dump(value=model_rfc, filename=filename_model)
+
+# Test the model.
+list_input = [4, 3, 2, 1]
+df_input = pl.DataFrame(
+    data=[list_input], 
+    schema=list(model_rfc.feature_names_in_),
+    orient='row'
+    )
+print(df_input)
+model_rfc.predict(df_input)
+model_rfc.predict_proba(df_input)
+
+# model_rfc.predict_proba(df_input).max(axis=1)
+# model_rfc.predict_proba(df_input).argmax(axis=1)
