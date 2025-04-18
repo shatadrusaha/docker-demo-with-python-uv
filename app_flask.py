@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request
 import joblib
 import polars as pl
-import numpy as np
+# import numpy as np
 
 '''
 https://code.visualstudio.com/docs/python/tutorial-flask
